@@ -9,10 +9,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from  '@angular/common/http';
-import { ToastrModule } from 'ngx-toastr';
-import {BsModalRef, ModalModule} from "ngx-bootstrap/modal";
+import { ModalModule} from "ngx-bootstrap/modal";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoResultComponent } from './Modules/Notes/no-result/no-result.component';
+import { NgxToastNotifyModule, NgxToastNotifyService } from 'ngx-toast-notify';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import { NoResultComponent } from './Modules/Notes/no-result/no-result.component
     NoteHomeComponent,
     NoteListComponent,
     NoteDetailsComponent,
-    NoResultComponent
+    NoResultComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,9 +30,16 @@ import { NoResultComponent } from './Modules/Notes/no-result/no-result.component
     HttpClientModule ,
     RouterModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot(),
+    NgxToastNotifyModule.forRoot({
+			toastTimeoutInSeconds:  2,
+			animationDelayInMilliSeconds:  500,
+			enableClosebutton:  true,
+			position:  'top-right',
+			backgroundColor:  '',
+			textColor:  ''
+	})
   ],
-  providers: [],
+  providers: [NgxToastNotifyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

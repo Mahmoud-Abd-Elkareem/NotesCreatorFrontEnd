@@ -1,8 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+import { NgxToastNotifyService } from 'ngx-toast-notify';
 import { EMPTY } from 'rxjs';
-import { ToasterConfig } from '../shared/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +9,7 @@ import { ToasterConfig } from '../shared/constants';
 export class BaseServiceService {
 
   protected serviceBase: string = ''
-  constructor(public toastr: ToastrService) {
+  constructor(public toastr: NgxToastNotifyService) {
   }
   handleError(errorResponse: any) {
     let message: string = "";
@@ -23,22 +22,12 @@ export class BaseServiceService {
             message += errorResponse?.error?.errors[key][value] + "\n";
         }
       } else {
-        message = 'COMMON.ERR.GEN_ERR';
+        message = 'Something happened  away from you it’s okay it’s not your fault';
       }
     } else {
-      message = 'COMMON.ERR.GEN_ERR';
+      message = 'Something happened away from you it’s okay it’s not your fault';
     }
-    this.toastr.show(message, 'error', ToasterConfig);
+    this.toastr.showToast(message, 'danger', 'top-center');
     return EMPTY;
-    // if (error instanceof HttpErrorResponse) {
-    //   let message = error?.error?.detail ?? this.translateService.instant('COMMON.ERR.GEN_ERR')
-    //   this.toastr.show(message, 'error', ToasterConfig);
-    // }
-    // else if (error?.error && error?.error?.title) {
-    //   let message = error?.title ?? this.translateService.instant('COMMON.ERR.GEN_ERR')
-    //   this.toastr.show(message, 'error', ToasterConfig);
-    // }
-
-    // return EMPTY;
   }
 }

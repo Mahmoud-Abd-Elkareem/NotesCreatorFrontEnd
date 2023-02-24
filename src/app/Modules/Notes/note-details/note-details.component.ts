@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { NoteServiceService } from 'src/app/Services/note-service.service';
 import { NoteModel } from '../Model/note-model';
 
@@ -13,7 +13,7 @@ export class NoteDetailsComponent implements OnInit {
   NoteId : string
   NoteObj : NoteModel
 
-  constructor(private activatedRoute: ActivatedRoute , public noteService : NoteServiceService) { }
+  constructor(private activatedRoute: Router , public noteService : NoteServiceService) { }
 
   ngOnInit(): void {
     let params: any = localStorage.getItem('id');
@@ -32,5 +32,8 @@ export class NoteDetailsComponent implements OnInit {
         }
       }
     )
+  }
+  navigateToHome(){
+    this.activatedRoute.navigateByUrl('')
   }
 }

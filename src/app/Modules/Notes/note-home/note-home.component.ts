@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxToastNotifyService } from 'ngx-toast-notify';
 import { Subject } from 'rxjs';
 import { NoteServiceService } from 'src/app/Services/note-service.service';
 import { NoteModel } from '../Model/note-model';
@@ -19,7 +20,7 @@ export class NoteHomeComponent implements OnInit {
     descriptionEn:''
   };
   eventsSubject: Subject<void> = new Subject<void>();
-  constructor(public noteService : NoteServiceService) { }
+  constructor(public noteService : NoteServiceService,public toastr: NgxToastNotifyService) { }
 
   ngOnInit(): void {
     this.intiateNoteForm()
@@ -41,7 +42,10 @@ export class NoteHomeComponent implements OnInit {
       descriptionEn : this.NoteForm.value.DescriptionEn
     }
     this.noteService.AddNotesService$(this.NoteObj).subscribe(res=>{
+      if (res.succeeded) {
       this.eventsSubject.next();
+        this.toastr.showToast('Added Successfully', 'success', 'top-center');
+      }
 
     })
     this.intiateNoteForm()

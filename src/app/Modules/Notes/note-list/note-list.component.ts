@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxToastNotifyService } from 'ngx-toast-notify';
 import { Observable, Subscription } from 'rxjs';
 import { NoteServiceService } from 'src/app/Services/note-service.service';
 import { NoteListObj, NoteModel } from '../Model/note-model';
@@ -22,7 +23,7 @@ export class NoteListComponent implements OnInit {
     descriptionEn:''
   };
   @Input() events: Observable<void>;
-  constructor(public noteService : NoteServiceService , public route : Router) { }
+  constructor(public noteService : NoteServiceService , public route : Router,public toastr: NgxToastNotifyService) { }
 
   ngOnInit(): void {
     this.eventsSubscription = this.events.subscribe(() => this.getNoteSList());
@@ -43,7 +44,6 @@ export class NoteListComponent implements OnInit {
     this.noteService.NotesService$().subscribe(
       res=>{
         res.data.items.forEach(item=>this.notesList.push(item))
-        console.log(this.notesList);
       }
     )
   }
@@ -52,6 +52,7 @@ export class NoteListComponent implements OnInit {
       res=>{
         if(res.succeeded){
           this.getNoteSList()
+          this.toastr.showToast('Deleted Successfully', 'success', 'top-center');
         }
       }
     )
@@ -73,7 +74,10 @@ export class NoteListComponent implements OnInit {
       descriptionEn : this.NoteForm.value.DescriptionEn
     }
     this.noteService.EditNotesService$(this.NoteObj).subscribe(res=>{
-      this.getNoteSList()
+      if(res.succeeded){
+        this.getNoteSList()
+        this.toastr.showToast('Edited Successfully', 'success', 'top-center');
+      }
 
     })
   }

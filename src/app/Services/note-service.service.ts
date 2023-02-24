@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { NgxToastNotifyService } from 'ngx-toast-notify';
 
-import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs';
 import { AppRestResponse, NoteListObj, NoteModel, PagedItems } from '../Modules/Notes/Model/note-model';
 import { BaseServiceService } from './base-service.service';
@@ -11,7 +11,7 @@ import { BaseServiceService } from './base-service.service';
 })
 export class NoteServiceService extends BaseServiceService {
 
-  constructor(public http: HttpClient ,public override toastr: ToastrService) {
+  constructor(public http: HttpClient ,public override toastr: NgxToastNotifyService) {
     super(toastr)
 }
 NotesService$ = () => {
