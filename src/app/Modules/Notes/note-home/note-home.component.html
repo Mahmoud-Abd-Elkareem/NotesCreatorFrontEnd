@@ -21,13 +21,13 @@ aria-labelledby="dialog-sizes-name1" data-keyboard="false" data-backdrop="static
       </div>
       <div class="modal-body">
         <form [formGroup]="NoteForm">
-          <label>Arabic Name</label>
+          <label>Arabic Name<span style="color: red;">*</span></label>
           <input class="form-control" formControlName="NameAr">
-          <label>English Name</label>
+          <label>English Name<span style="color: red;">*</span></label>
           <input class="form-control" formControlName="NameEn">
-          <label>Arabic Description</label>
+          <label>Arabic Description<span style="color: red;">*</span></label>
           <textarea class="form-control" formControlName="DescriptionAr"></textarea>
-          <label>English Description</label>
+          <label>English Description<span style="color: red;">*</span></label>
           <textarea class="form-control" formControlName="DescriptionEn"></textarea>
         </form>
       </div>
